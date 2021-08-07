@@ -63,4 +63,4 @@ if __name__ == '__main__':
     opt = parse_opt()
     with app.app_context():
         current_app.model = Detector()
-    app.run(host='127.0.0.1', port=opt.port, debug=True)
+    app.run(host='127.0.0.1', port=opt.port)
