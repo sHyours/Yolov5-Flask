@@ -74,7 +74,7 @@ class Detector(object):
                     line = (clsn,xywh[0])
                     print(line)
                     lines.append(line)
-        lines.sort(key=lambda l: l[0])
+        lines.sort(key=lambda l: l[1])
         print(lines)
         info = []
         for line in lines:
