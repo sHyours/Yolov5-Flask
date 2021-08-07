@@ -7,4 +7,4 @@
 
 `pip install -qr requirements.txt`
 
-`python app.py --5003`
+`python app.py --port 5003`
