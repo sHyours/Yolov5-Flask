@@ -1,2 +1,2 @@
-# Yolov5-Flask
-基于Flask开发后端
+# Yolov5-Flask-Rune
+基于Flask的Yolov5符文识别服务器
