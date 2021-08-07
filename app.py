@@ -1,5 +1,6 @@
 import datetime
 import logging as rel_log
+import argparse
 from datetime import timedelta
 from flask import *
 from processor.AIDetector_pytorch import Detector
@@ -51,7 +52,15 @@ def detect():
     return jsonify({'status': 0})
 
 
+def parse_opt():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--port', default=5003, help='port')
+    opt = parser.parse_args()
+    return opt
+
+
 if __name__ == '__main__':
+    opt = parse_opt()
     with app.app_context():
         current_app.model = Detector()
-    app.run(host='127.0.0.1', port=5003, debug=True)
+    app.run(host='127.0.0.1', port=opt.port, debug=True)
