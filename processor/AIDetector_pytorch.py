@@ -21,7 +21,7 @@ class Detector(object):
     def init_model(self):
 
         self.weights = 'weights/final.pt'
-        self.device = 'cpu'
+        self.device = ''
         self.device = select_device(self.device)
         model = attempt_load(self.weights, map_location=self.device)
         # torch.save(model, 'test.pt')
@@ -72,11 +72,11 @@ class Detector(object):
                                         ) / gn).view(-1).tolist()  # normalized xywh
                     # line = (clsn, cls, *xywh)  # label format
                     line = (clsn,xywh[0])
-                    print(line)
+                    # print(line)
                     lines.append(line)
         lines.sort(key=lambda l: l[1])
-        print(lines)
         info = []
         for line in lines:
+            print(lines)
             info.append(line[0])
         return info
