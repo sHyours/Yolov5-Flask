@@ -76,6 +76,6 @@ class Detector(object):
         lines.sort(key=lambda l: l[1])
         info = []
         for line in lines:
-            print(lines)
             info.append(line[0])
+        print(info)
         return info
