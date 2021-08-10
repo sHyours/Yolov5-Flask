@@ -64,4 +64,4 @@ if __name__ == '__main__':
     opt = parse_opt()
     with app.app_context():
         current_app.model = Detector(opt.device)
-    app.run(host='127.0.0.1', port=opt.port)
+    app.run(host='0.0.0.0', port=opt.port)
