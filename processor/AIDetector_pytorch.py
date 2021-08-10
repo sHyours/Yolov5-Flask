@@ -11,18 +11,17 @@ import cv2
 
 class Detector(object):
 
-    def __init__(self):
+    def __init__(self,device):
         self.imgsz = 640
         self.max_frame = 160
         self.conf_thres = 0.25  # confidence threshold
         self.iou_thres = 0.45  # NMS IOU threshold
-        self.init_model()
+        self.init_model(device)
 
-    def init_model(self):
+    def init_model(self,device):
 
         self.weights = 'weights/final.pt'
-        self.device = ''
-        self.device = select_device(self.device)
+        self.device = select_device(device)
         model = attempt_load(self.weights, map_location=self.device)
         # torch.save(model, 'test.pt')
         self.model = model

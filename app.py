@@ -55,6 +55,7 @@ def detect():
 def parse_opt():
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', default=5003, help='port')
+    parser.add_argument('--device', default='', help='device')
     opt = parser.parse_args()
     return opt
 
@@ -62,5 +63,5 @@ def parse_opt():
 if __name__ == '__main__':
     opt = parse_opt()
     with app.app_context():
-        current_app.model = Detector()
+        current_app.model = Detector(opt.device)
     app.run(host='127.0.0.1', port=opt.port)
