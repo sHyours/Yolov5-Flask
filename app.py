@@ -1,6 +1,7 @@
 import datetime
 import logging as rel_log
 import argparse
+import uuid
 from datetime import timedelta
 from flask import *
 from processor.AIDetector_pytorch import Detector
@@ -46,6 +47,9 @@ def detect():
     print(datetime.datetime.now(), file.filename)
     if file and allowed_file(file.filename):
         fileBuffer = file.read()
+        if current_app.save == '1':
+            with open("./picture/"+str(uuid.uuid1()) + ".png",'wb+') as fs:
+                fs.write(fileBuffer)
         image_info = core.main.c_main(fileBuffer, current_app.model)
         return jsonify({'status': 1, 'image_info': image_info})
 
@@ -56,6 +60,7 @@ def parse_opt():
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', default=5003, help='port')
     parser.add_argument('--device', default='', help='device')
+    parser.add_argument('--save', default='0', help='save')
     opt = parser.parse_args()
     return opt
 
@@ -64,4 +69,5 @@ if __name__ == '__main__':
     opt = parse_opt()
     with app.app_context():
         current_app.model = Detector(opt.device)
+        current_app.save = opt.save
     app.run(host='0.0.0.0', port=opt.port)
