@@ -48,7 +48,7 @@ def detect():
     if file and allowed_file(file.filename):
         fileBuffer = file.read()
         if current_app.save == '1':
-            with open("./picture/"+str(uuid.uuid1()) + ".png",'wb+') as fs:
+            with open("./picture/"+str(uuid.uuid1()) + ".png", 'wb+') as fs:
                 fs.write(fileBuffer)
         image_info = core.main.c_main(fileBuffer, current_app.model)
         return jsonify({'status': 1, 'image_info': image_info})
@@ -61,13 +61,15 @@ def parse_opt():
     parser.add_argument('--port', default=5003, help='port')
     parser.add_argument('--device', default='', help='device')
     parser.add_argument('--save', default='0', help='save')
+    parser.add_argument('--model', default='final', help='save')
     opt = parser.parse_args()
     return opt
 
 
 if __name__ == '__main__':
     opt = parse_opt()
+    # opt.model = 'final_2_0'
     with app.app_context():
-        current_app.model = Detector(opt.device)
-        current_app.save = opt.save
+        current_app.model = Detector(opt.device, opt.model)
+        current_app.save = '0'
     app.run(host='0.0.0.0', port=opt.port)

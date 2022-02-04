@@ -11,16 +11,16 @@ import cv2
 
 class Detector(object):
 
-    def __init__(self,device):
+    def __init__(self, device, model):
         self.imgsz = 640
         self.max_frame = 160
         self.conf_thres = 0.25  # confidence threshold
         self.iou_thres = 0.45  # NMS IOU threshold
-        self.init_model(device)
+        self.init_model(device, model)
 
-    def init_model(self,device):
+    def init_model(self, device, model):
 
-        self.weights = 'weights/final.pt'
+        self.weights = 'weights/'+model+'.pt'
         self.device = select_device(device)
         model = attempt_load(self.weights, map_location=self.device)
         # torch.save(model, 'test.pt')
@@ -36,7 +36,8 @@ class Detector(object):
         # Dataloader
         lines = []
 
-        img0s = cv2.imdecode(np.frombuffer(imageBuffer, np.uint8), cv2.IMREAD_COLOR)  # BGR
+        img0s = cv2.imdecode(np.frombuffer(
+            imageBuffer, np.uint8), cv2.IMREAD_COLOR)  # BGR
         # Padded resize
         img = letterbox(img0s, self.imgsz, stride=self.stride)[0]
         # Convert
@@ -68,9 +69,9 @@ class Detector(object):
                 for *xyxy, conf, cls in reversed(det):
                     clsn = self.names[int(cls)]
                     xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)
-                                        ) / gn).view(-1).tolist()  # normalized xywh
+                                      ) / gn).view(-1).tolist()  # normalized xywh
                     # line = (clsn, cls, *xywh)  # label format
-                    line = (clsn,xywh[0])
+                    line = (clsn, xywh[0])
                     # print(line)
                     lines.append(line)
         lines.sort(key=lambda l: l[1])
