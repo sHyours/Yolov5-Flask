@@ -7,4 +7,4 @@
 
 `pip install -qr requirements.txt`
 
-`python app.py --port 5003 --device cpu`
+`python app.py --port 5003 --device cpu --save 0`
