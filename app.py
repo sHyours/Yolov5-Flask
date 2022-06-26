@@ -1,10 +1,10 @@
 import datetime
-import logging as rel_log
 import argparse
 import uuid
 from datetime import timedelta
 from flask import *
 from processor.AIDetector_pytorch import Detector
+from utils.logger import logger
 
 import core.main
 
@@ -14,9 +14,6 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg'])
 app = Flask(__name__)
 app.secret_key = 'secret!'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-werkzeug_logger = rel_log.getLogger('werkzeug')
-werkzeug_logger.setLevel(rel_log.ERROR)
 
 # 解决缓存刷新问题
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=1)
@@ -51,6 +48,7 @@ def detect():
             with open("./picture/"+str(uuid.uuid1()) + ".png", 'wb+') as fs:
                 fs.write(fileBuffer)
         image_info = core.main.c_main(fileBuffer, current_app.model)
+        logger.info("{0}:{1}".format(request.remote_addr,image_info))
         return jsonify({'status': 1, 'image_info': image_info})
 
     return jsonify({'status': 0})

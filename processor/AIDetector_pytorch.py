@@ -78,5 +78,5 @@ class Detector(object):
         info = []
         for line in lines:
             info.append(line[0])
-        print(info)
+        # print(info)
         return info
