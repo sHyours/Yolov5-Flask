@@ -48,12 +48,13 @@ def hello_world():
 @app.route('/detect', methods=['GET', 'POST'])
 def detect():
     file = request.files['file']
-    print(datetime.datetime.now(), file.filename)
     if file and allowed_file(file.filename):
         fileBuffer = file.read()
         if current_app.save == '1':
-            with open("./picture/"+str(uuid.uuid1()) + ".png", 'wb+') as fs:
+            fileNmae = str(uuid.uuid1())
+            with open("./picture/"+ fileNmae + ".png", 'wb+') as fs:
                 fs.write(fileBuffer)
+            logger.info("{0} saved".format(fileNmae))
         image_info = core.main.c_main(fileBuffer, current_app.model)
         logger.info("{0}:{1}".format(request.remote_addr,image_info))
         return jsonify({'status': 1, 'image_info': image_info})
