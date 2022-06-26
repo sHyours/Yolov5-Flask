@@ -5,6 +5,7 @@ from datetime import timedelta
 from flask import *
 from processor.AIDetector_pytorch import Detector
 from utils.logger import logger
+from utils.logger import init as loggerInit
 
 import core.main
 
@@ -14,6 +15,8 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg'])
 app = Flask(__name__)
 app.secret_key = 'secret!'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+loggerInit()
 
 # 解决缓存刷新问题
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=1)
