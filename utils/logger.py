@@ -24,4 +24,4 @@ def init():
     logger.addHandler(fh)
     logger.addHandler(ch)
 
-logger = logging.getLogger("Timer")
+logger = logging.getLogger("Rune")
