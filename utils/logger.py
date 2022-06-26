@@ -3,7 +3,7 @@ import os
 
 def init():
     # 第一步，创建一个logger
-    logger = logging.getLogger("Timer")
+    logger = logging.getLogger("Rune")
     logger.setLevel(logging.INFO)    # Log等级总开关
     
     # 第二步，创建一个handler，用于写入日志文件
