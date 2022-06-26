@@ -1,6 +1,7 @@
 import datetime
 import argparse
 import uuid
+import logging as rel_log
 from datetime import timedelta
 from flask import *
 from processor.AIDetector_pytorch import Detector
@@ -15,6 +16,9 @@ ALLOWED_EXTENSIONS = set(['png', 'jpg'])
 app = Flask(__name__)
 app.secret_key = 'secret!'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+werkzeug_logger = rel_log.getLogger('werkzeug')
+werkzeug_logger.setLevel(rel_log.ERROR)
 
 loggerInit()
 
