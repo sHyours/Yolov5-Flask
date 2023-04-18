@@ -65,9 +65,9 @@ def detect():
 def parse_opt():
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', default=5003, help='port')
-    parser.add_argument('--device', default='', help='device')
+    parser.add_argument('--device', default='cpu', help='device')
     parser.add_argument('--save', default='1', help='save')
-    parser.add_argument('--model', default='final', help='final')
+    parser.add_argument('--model', default='checker', help='final')
     opt = parser.parse_args()
     return opt
 
