@@ -72,7 +72,7 @@ class Detector(object):
                                       ) / gn).view(-1).tolist()  # normalized xywh
                     # line = (clsn, cls, *xywh)  # label format
                     line = (clsn, xywh[0])
-                    # print(line)
+                    print(line)
                     lines.append(line)
         lines.sort(key=lambda l: l[1])
         info = []
