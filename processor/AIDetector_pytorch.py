@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 from models.experimental import attempt_load
-from utils.general import non_max_suppression, scale_coords, xyxy2xywh
+from utils.general import non_max_suppression, scale_boxes, xyxy2xywh
 from utils.augmentations import letterbox
 from utils.torch_utils import select_device
 from utils.datasets import LoadImages
@@ -22,7 +22,7 @@ class Detector(object):
 
         self.weights = 'weights/'+model+'.pt'
         self.device = select_device(device)
-        model = attempt_load(self.weights, map_location=self.device)
+        model = attempt_load(self.weights, device=self.device)
         # torch.save(model, 'test.pt')
         self.model = model
         self.names = model.module.names if hasattr(
@@ -62,7 +62,7 @@ class Detector(object):
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]
             if len(det):
                 # Rescale boxes from img_size to im0 size
-                det[:, :4] = scale_coords(
+                det[:, :4] = scale_boxes(
                     img.shape[2:], det[:, :4], im0.shape).round()
 
                 # Write results

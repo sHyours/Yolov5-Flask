@@ -12,7 +12,7 @@ import core.main
 
 UPLOAD_FOLDER = r'./uploads'
 
-ALLOWED_EXTENSIONS = set(['png', 'jpg'])
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'bmp'])
 app = Flask(__name__)
 app.secret_key = 'secret!'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -66,8 +66,8 @@ def parse_opt():
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', default=5003, help='port')
     parser.add_argument('--device', default='', help='device')
-    parser.add_argument('--save', default='0', help='save')
-    parser.add_argument('--model', default='final', help='save')
+    parser.add_argument('--save', default='1', help='save')
+    parser.add_argument('--model', default='final', help='final')
     opt = parser.parse_args()
     return opt
 
@@ -77,5 +77,5 @@ if __name__ == '__main__':
     # opt.model = 'final_2_0'
     with app.app_context():
         current_app.model = Detector(opt.device, opt.model)
-        current_app.save = '0'
+        current_app.save = '1'
     app.run(host='0.0.0.0', port=opt.port)
