@@ -68,7 +68,7 @@ def parse_opt():
     parser.add_argument('--device', default='cpu', help='device')
     parser.add_argument('--save', default='1', help='save')
     parser.add_argument('--model', default='final', help='final')
-    parser.add_argument('--thres', default='0.25', help='conf_thres')
+    parser.add_argument('--thres', default=0.25, help='conf_thres', type=float)
     opt = parser.parse_args()
     return opt
 
