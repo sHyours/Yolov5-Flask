@@ -11,10 +11,10 @@ import cv2
 
 class Detector(object):
 
-    def __init__(self, device, model):
+    def __init__(self, device, model, conf_thres=0.25):
         self.imgsz = 640
         self.max_frame = 160
-        self.conf_thres = 0.25  # confidence threshold
+        self.conf_thres = conf_thres  # confidence threshold
         self.iou_thres = 0.45  # NMS IOU threshold
         self.init_model(device, model)
 

@@ -67,7 +67,8 @@ def parse_opt():
     parser.add_argument('--port', default=5003, help='port')
     parser.add_argument('--device', default='cpu', help='device')
     parser.add_argument('--save', default='1', help='save')
-    parser.add_argument('--model', default='checker', help='final')
+    parser.add_argument('--model', default='final', help='final')
+    parser.add_argument('--thres', default='0.25', help='conf_thres')
     opt = parser.parse_args()
     return opt
 
@@ -76,6 +77,6 @@ if __name__ == '__main__':
     opt = parse_opt()
     # opt.model = 'final_2_0'
     with app.app_context():
-        current_app.model = Detector(opt.device, opt.model)
-        current_app.save = '1'
+        current_app.model = Detector(opt.device, opt.model, opt.thres)
+        current_app.save = opt.save
     app.run(host='0.0.0.0', port=opt.port)
