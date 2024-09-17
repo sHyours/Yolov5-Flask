@@ -1,3 +1,3 @@
 @echo off
 cd  %~dp0
-python app.py --device cpu --save 0  --port 5003 --model final
+py -3.9-64 app.py --device cpu --save 0  --port 5003 --model final
